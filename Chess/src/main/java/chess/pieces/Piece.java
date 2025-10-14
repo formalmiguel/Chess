@@ -1,9 +1,12 @@
 package chess.pieces;
 import chess.board.*;
+import java.util.Set;
+
 public abstract class Piece {
-    protected boolean killed = false;
+//    protected boolean killed = false;
     protected boolean white = false;
     protected String name;
+//    public Set<Spot> moves;
 
     public Piece(boolean white){
         this.setWhite(white);
@@ -23,6 +26,7 @@ public abstract class Piece {
 
     protected abstract void setName();
     public abstract boolean canMove(Board board, Spot start, Spot end);
+//    public abstract Set<Spot> legaMoves(Board board);
 }
 
 //

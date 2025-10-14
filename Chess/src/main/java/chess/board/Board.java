@@ -3,14 +3,16 @@ import chess.pieces.*;
 
 public class Board {
     Spot [][] boxes = new Spot[8][8];
+//    captured pieces
     public Board(){
         this.resetBoard();
     }
-    public Spot getBox(int row, int col){
+
+    public Spot getSpot(int row, int col) throws Exception {
         if(row < 0 || row > 7 || col < 0 || col > 7){
-//            throw new Exception("Index out of bounds");
-            System.out.println("index out of bounds");
+            throw new Exception("Index out of bounds");
         }
+
         return boxes [row][col];
     }
 
@@ -65,6 +67,15 @@ public class Board {
     public void printBoard(){
         System.out.println(stringBoard());
     }
+//    getPiece(PosiLon posiLon): Returns the piece at the specified posiLon.
+    public Piece getPiece(Spot spot){
+        return spot.getPiece();
+    }
+//• movePiece(PosiLon from, PosiLon to): Moves a piece from one square to another.
+//• isCheck(Color color): Checks if a given color is in check.
+//• isCheckmate(Color color): Checks if a given color is in checkmate.
+
+
 
 
 }
