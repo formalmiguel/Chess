@@ -1,8 +1,10 @@
 package chess;
 import chess.board.Board;
+import chess.board.Spot;
+import chess.pieces.Pawn;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
     Board board = new Board();
@@ -18,6 +20,76 @@ public class BoardTest {
                 "3 ##    ##    ##    ##    \n" +
                 "2 wp wp wp wp wp wp wp wp \n" +
                 "1 wR wN wB wQ wK wB wN wR \n", board.stringBoard());
+
+
+    }
+    @Test void testMove(){
+        board.printBoard();
+        try{
+            Spot start = board.getSpot(6, 1);
+            Spot end = board.getSpot(5, 1);
+            System.out.println("spot name start: " + start.getName());
+
+            board.MovePiece(start,end);
+            board.printBoard();
+
+            System.out.println("spot name: " + start.getName());
+            System.out.println("spot name: " + start.getPiece());
+
+            assertTrue(true);
+
+        } catch (Exception e) {
+
+        }
+
+    }
+    @Test
+    public void testPawnMove1up() {
+        try {
+            Spot start = board.getSpot(6, 1);
+
+            Spot end = board.getSpot(5, 1);
+
+
+            boolean can = start.getPiece().canMove(board, start, end);
+            assertTrue(can);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    @Test
+    public void testPawnMove2up() {
+        try {
+            Spot start = board.getSpot(6, 2);
+            Spot end = board.getSpot(4, 2);
+            boolean can = start.getPiece().canMove(board, start, end);
+            assertTrue(can);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+    @Test
+    public void testPawnMove2upAfter() {
+        try {
+            Spot start1 = board.getSpot(6, 3);
+
+            Spot end1 = board.getSpot(5, 3);
+            start1.getPiece().canMove(board, start1, end1);
+
+            Spot start = board.getSpot(6, 3);
+            Spot end = board.getSpot(4, 3);
+
+            boolean can = start.getPiece().canMove(board, start, end);
+            assertFalse(can);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+
 
 
     }

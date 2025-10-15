@@ -16,4 +16,5 @@ public class PieceTest {
     public void testPieceName(){
         assertEquals("wN ", whitePiece.getName());
     }
+
 }

@@ -10,7 +10,8 @@ public class Queen extends Piece{
 
     @Override
     public boolean canMove(Board board, Spot start, Spot end) {
-        if (end.getPiece().isWhite() == this.isWhite()) {
+        boolean empty = end.getPiece() == null;
+        if ( !empty && end.getPiece().isWhite() == this.isWhite()) { // if end piece is same as white
             return false;
         }
 

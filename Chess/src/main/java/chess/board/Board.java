@@ -15,6 +15,16 @@ public class Board {
 
         return boxes [row][col];
     }
+    public void MovePiece(Spot start, Spot end){
+        // check if legal move
+        Piece startPiece = start.getPiece();
+        //if it's a king then use its already generated list
+        start.setPiece(null);
+        startPiece.hasMoved = true;
+        end.setPiece(startPiece);
+        //piece. generate moves
+        //call generate moves on player's king
+    }
 
     public void resetBoard(){
 
@@ -22,7 +32,7 @@ public class Board {
         boxes[0][1] = new Spot(0, 1, new Knight(false));
         boxes[0][2] = new Spot(0, 2, new Bishop(false));
         boxes[0][3] = new Spot(0, 3, new Queen(false));
-        boxes[0][4] = new Spot(0, 4, new King(false));
+        boxes[0][4] = new Spot(0, 4, new King(false, 0, 4, this));
         boxes[0][5] = new Spot(0, 5, new Bishop(false));
         boxes[0][6] = new Spot(0, 6, new Knight(false));
         boxes[0][7] = new Spot(0, 7, new Rook(false));
@@ -34,14 +44,14 @@ public class Board {
         boxes[7][1] = new Spot(7, 1, new Knight(true));
         boxes[7][2] = new Spot(7, 2, new Bishop(true));
         boxes[7][3] = new Spot(7, 3, new Queen(true));
-        boxes[7][4] = new Spot(7, 4, new King(true));
+        boxes[7][4] = new Spot(7, 4, new King(true, 7, 4, this));
         boxes[7][5] = new Spot(7, 5, new Bishop(true));
         boxes[7][6] = new Spot(7, 6, new Knight(true));
         boxes[7][7] = new Spot(7, 7, new Rook(true));
 
         // initialize remaining boxes without any piece
         for(int i = 0; i < 8; i++){
-            boxes[1][i] = new Spot(1, i, new Pawn(false));
+            boxes[1][i] = new Spot(1, i, new Pawn(false)); //black pawn
             boxes[6][i] = new Spot(6, i, new Pawn(true));
         }
 
@@ -50,6 +60,7 @@ public class Board {
                 boxes[i][j] = new Spot(i, j, null);
             }
         }
+
     }
 
     public String stringBoard(){
@@ -65,13 +76,18 @@ public class Board {
         return res;
     }
     public void printBoard(){
-        System.out.println(stringBoard());
+        System.out.println(this.stringBoard());
     }
+
+    //assume game will call board to move pieces
+    public void checkMoves(boolean color, Spot start, Spot end){
+
+    }
+
 //    getPiece(PosiLon posiLon): Returns the piece at the specified posiLon.
-    public Piece getPiece(Spot spot){
-        return spot.getPiece();
-    }
-//• movePiece(PosiLon from, PosiLon to): Moves a piece from one square to another.
+//    public Piece getPiece(Spot spot){
+//        return spot.getPiece();
+//    }
 //• isCheck(Color color): Checks if a given color is in check.
 //• isCheckmate(Color color): Checks if a given color is in checkmate.
 

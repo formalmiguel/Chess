@@ -1,15 +1,20 @@
 package chess.pieces;
 import chess.board.*;
+
+import java.util.HashSet;
 import java.util.Set;
 
 public abstract class Piece {
 //    protected boolean killed = false;
-    protected boolean white = false;
+    protected boolean white;
     protected String name;
-//    public Set<Spot> moves;
+    public boolean hasMoved;
+    public Set<Spot> moves;
 
     public Piece(boolean white){
         this.setWhite(white);
+        this.hasMoved = false;
+        moves = new HashSet<Spot>();
     }
 
     public boolean isWhite(){

@@ -19,6 +19,7 @@ public class Spot {
 
     public void setPiece(Piece p){
         this.piece = p;
+        this.setName(p);
     }
     public Piece getPiece(){
         return this.piece;
