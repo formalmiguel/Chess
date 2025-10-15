@@ -23,18 +23,31 @@ public class BoardTest {
 
 
     }
-    @Test void testMove(){
+
+    @Test
+    public void Kingtest(){
         board.printBoard();
+        try{
+            Spot king = board.getSpot(5,4);
+            Spot move = board.getSpot(4,4);
+            System.out.println(king.getName());
+            System.out.println(king.getPiece().moves.contains(move));
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+    }
+    @Test void testMove(){
+//        board.printBoard();
         try{
             Spot start = board.getSpot(6, 1);
             Spot end = board.getSpot(5, 1);
-            System.out.println("spot name start: " + start.getName());
+//            System.out.println("spot name start: " + start.getName());
 
             board.MovePiece(start,end);
-            board.printBoard();
+//            board.printBoard();
 
-            System.out.println("spot name: " + start.getName());
-            System.out.println("spot name: " + start.getPiece());
+//            System.out.println("spot name: " + start.getName());
+//            System.out.println("spot name: " + start.getPiece());
 
             assertTrue(true);
 
@@ -89,10 +102,9 @@ public class BoardTest {
             System.out.println(e);
         }
 
-
-
-
     }
+
+
 }
 
 

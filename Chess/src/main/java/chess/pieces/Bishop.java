@@ -2,8 +2,8 @@ package chess.pieces;
 import chess.board.*;
 
 public class Bishop extends Piece{
-    public Bishop(boolean white){
-        super(white);
+    public Bishop(boolean white, int row, int col){
+        super(white, row, col);
         this.setName();
     }
 

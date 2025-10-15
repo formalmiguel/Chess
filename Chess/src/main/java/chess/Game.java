@@ -29,6 +29,7 @@ public class Game {
 
             try{
                 board.printBoard();
+                System.out.print(currentPlayer.Color() ? "White ": "Black ");
                 System.out.print("Please enter your move: ");
                 String input = scanner.nextLine();
 
@@ -40,17 +41,17 @@ public class Game {
                 // add checking for input
                 Spot startSpot = board.getSpot(startRow, startCol);
                 if(startSpot.getPiece() == null || startSpot.getPiece().isWhite() != currentPlayer.Color()){
-                    System.out.println("Not your piece");
+                    System.out.println("Not your piece or You choose an empty square");
                     continue;
                 }
 
                 Spot destination =  board.getSpot(endRow,endCol);
-                board.MovePiece(startSpot, destination);
+                board.MovePiece(startSpot, destination); //both will be valid
                 //switch user
                 currentPlayer = (currentPlayer == white) ? black : white;
 
             } catch (Exception e) {
-                System.out.println("issue occurred");
+                System.out.println("INVALID MOVE");
 
             }
 

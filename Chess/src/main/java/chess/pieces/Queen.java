@@ -3,8 +3,8 @@ import chess.board.*;
 
 
 public class Queen extends Piece{
-    public Queen(boolean white){
-        super(white);
+    public Queen(boolean white, int row, int col){
+        super(white, row, col);
         this.setName();
     }
 
@@ -19,6 +19,15 @@ public class Queen extends Piece{
         int col = Math.abs(start.getCol() - end.getCol());
         return row * col == 2;
     }
+
+    public boolean checkDiagonal(Spot start, Spot end){
+        return Math.abs(end.getCol() - start.getCol()) ==
+                Math.abs(end.getRow() - start.getRow());
+    }
+
+//    public boolean checkCross(Spot start, Spot end){
+//
+//    }
 
     @Override
     protected void setName(){

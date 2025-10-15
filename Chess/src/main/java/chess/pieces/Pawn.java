@@ -3,8 +3,8 @@ import chess.board.*;
 
 
 public class Pawn extends Piece{
-    public Pawn(boolean white){
-        super(white);
+    public Pawn(boolean white, int row, int col){
+        super(white, row, col);
         this.setName();
     }
 

@@ -6,8 +6,8 @@ public class Knight extends Piece {
             {2, 1}, {1, 2}, {-1, 2}, {-2, 1},
             {-2, -1}, {-1, -2}, {1, -2}, {2, -1}
     };
-    public Knight(boolean white){
-        super(white);
+    public Knight(boolean white, int row, int col){
+        super(white, row, col);
         this.setName();
     }
 
@@ -23,28 +23,6 @@ public class Knight extends Piece {
         return row * col == 2;
     }
 
-    public void generateMoves(int row, int col, Board board){
-        try {
-            Spot cur = board.getSpot(row, col);
-            for (int[] move : moveset) {
-                int newRow = row + move[0];
-                int newCol = col + move[1];
-                try {
-                    Spot attempt = board.getSpot(newRow, newCol);
-                        if(this.canMove(board, cur, attempt)){
-                            this.moves.add(attempt);
-                        }
-                    } catch (Exception e) {
-
-                    }
-
-                }
-
-        } catch(Exception e) {
-            System.out.println("Knight issue");
-        }
-
-    }
 
 
     @Override
