@@ -1,25 +1,19 @@
 package chess.pieces;
 import chess.board.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public abstract class Piece {
-//    protected boolean killed = false;
     protected boolean white;
     protected String name;
     public boolean hasMoved;
     public Piece hittingPiece;
-    public int curRow;
-    public int curCol;
-//    public Set<Spot> moves;
+    private int curRow;
+    private int curCol;
 
     public Piece(boolean white, int row, int col){
         this.setWhite(white);
         this.hasMoved = false;
-        this.curRow = row;
-        this.curCol = col;
-//        moves = new HashSet<Spot>();
+        this.setCurRow(row);
+        this.setCurCol(col);
     }
 
     public boolean isWhite(){
@@ -51,23 +45,64 @@ public abstract class Piece {
         }
         return false;
     }
-
+    public boolean pieceOnCross(Spot end, Board board){
+        //moving left?
+        for(int col = this.getCurCol() - 1; col > end.getCol(); col--){
+            for(Piece piece : board.pieces){
+                if( piece.getCurCol() == col && piece.getCurRow() == end.getCol()){
+                    hittingPiece = piece;
+                    return true;
+                }
+            }
+        }
+        //moving right
+        for(int col = this.getCurCol() + 1; col < end.getCol(); col++){
+            for(Piece piece : board.pieces){
+                if( piece.getCurCol() == col && piece.getCurRow() == end.getCol()){
+                    hittingPiece = piece;
+                    return true;
+                }
+            }
+        }
+        //moving up
+        for(int row = this.getCurRow() - 1; row > end.getRow(); row--){
+            for(Piece piece : board.pieces){
+                if( piece.getCurRow() == row && piece.getCurRow() == end.getRow()){
+                    hittingPiece = piece;
+                    return true;
+                }
+            }
+        }
+        //moving down
+        for(int row = this.getCurRow() + 1; row < end.getRow(); row++){
+            for(Piece piece : board.pieces){
+                if( piece.getCurRow() == row && piece.getCurRow() == end.getRow()){
+                    hittingPiece = piece;
+                    return true;
+                }
+            }
+        }
+        // no piece on cross
+        return false;
+    }
 
     protected abstract void setName();
     public abstract boolean canMove(Board board, Spot start, Spot end);
-//    public abstract Set<Spot> legaMoves(Board board);
+
+    public int getCurRow() {
+        return curRow;
+    }
+
+    public void setCurRow(int curRow) {
+        this.curRow = curRow;
+    }
+
+    public int getCurCol() {
+        return curCol;
+    }
+
+    public void setCurCol(int curCol) {
+        this.curCol = curCol;
+    }
 }
 
-//
-//class A {
-//    private int a;
-//    public A(int a) { this.a = a; }
-//    public int getA() {return a;}
-//}
-//
-//class B extends A {
-//    public B(int b) { super(b); }
-//    public int getB() {return getA();}
-//}
-//
-//int result = new B(10).getA();

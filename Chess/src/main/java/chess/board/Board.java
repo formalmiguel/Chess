@@ -1,9 +1,14 @@
 package chess.board;
 import chess.pieces.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Board {
     Spot [][] boxes = new Spot[8][8];
-//    captured pieces
+    public Set<Piece> pieces = new HashSet<>();
+    public Set<Piece> captured = new HashSet<>();
+
     public Board(){
         this.resetBoard();
     }
@@ -16,15 +21,14 @@ public class Board {
         return boxes [row][col];
     }
     public void MovePiece(Spot start, Spot end){
-        // check if legal move
         Piece startPiece = start.getPiece();
-//        boolean hasMove = startPiece.moves.contains(end);
-        //if it's a king then use its already generated list
+        if(startPiece.canMove(this, start, end)){
             start.setPiece(null);
             startPiece.hasMoved = true;
             end.setPiece(startPiece);
-        //piece. generate moves
-        //call generate moves on player's king
+        }
+        //else throw an error that piece can not make that move.
+
     }
 
     public void resetBoard(){
@@ -62,6 +66,17 @@ public class Board {
             }
         }
 
+      for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Piece p = boxes[i][j].getPiece();
+                if(p != null){
+                    if (pieces != null) {
+                        pieces.add(p);
+                    }
+                }
+            }
+        }
+
     }
 
     public String stringBoard(){
@@ -76,23 +91,9 @@ public class Board {
         }
         return res;
     }
+
     public void printBoard(){
         System.out.println(this.stringBoard());
     }
-
-    //assume game will call board to move pieces
-//    public void checkMoves(boolean color, Spot start, Spot end){
-//
-//    }
-
-//    getPiece(PosiLon posiLon): Returns the piece at the specified posiLon.
-//    public Piece getPiece(Spot spot){
-//        return spot.getPiece();
-//    }
-//• isCheck(Color color): Checks if a given color is in check.
-//• isCheckmate(Color color): Checks if a given color is in checkmate.
-
-
-
 
 }

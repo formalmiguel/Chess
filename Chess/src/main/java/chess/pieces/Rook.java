@@ -1,7 +1,7 @@
 package chess.pieces;
 import chess.board.*;
 
-public class Rook extends  Queen{
+public class Rook extends Queen{
     public Rook(boolean white, int row, int col){
         super(white, row, col);
         this.setName();
@@ -14,12 +14,8 @@ public class Rook extends  Queen{
             return false;
         }
 
-        int startRow = start.getRow();
-        int startCol = start.getCol();
-        int endRow = end.getRow();
-        int endCol = end.getCol();
-
-        return endRow == startRow || endCol == startCol;
+        boolean math = end.getCol() == getCurCol() || end.getRow() == getCurRow();
+        return math && isValidSquare(end) && !pieceOnCross(end, board);
     }
 
     @Override
@@ -27,14 +23,4 @@ public class Rook extends  Queen{
         this.name = this.isWhite() ? "wR " : "bR ";
     }
 
-    public void generateMoves(int row, int col, Board board){
-        try {
-            Spot cur = board.getSpot(row, col);
-            // moves up and
-
-        } catch(Exception e) {
-            System.out.println("Rook issue");
-        }
-
-    }
 }
