@@ -11,8 +11,8 @@ public class Queen extends Piece{
     @Override
     public boolean canMove(Board board, Spot start, Spot end) {
 
-        boolean crossMath = Math.abs(end.getCol()- getCurCol()) == Math.abs(end.getRow()- getCurRow());
-        boolean diagMath = end.getCol() == getCurCol() || end.getRow() == getCurRow();
+        boolean diagMath = Math.abs(end.getCol()- getCurCol()) == Math.abs(end.getRow()- getCurRow());
+        boolean crossMath = end.getCol() == getCurCol() || end.getRow() == getCurRow();
 
         if(crossMath){
             return isValidSquare(end) && !pieceOnCross(end, board);
@@ -70,46 +70,6 @@ public class Queen extends Piece{
         return false;
     }
 
-    public boolean pieceOnCross(Spot end, Board board){
-        //moving left?
-        for(int col = this.getCurCol() - 1; col > end.getCol(); col--){
-            for(Piece piece : board.pieces){
-                if( piece.getCurCol() == col && piece.getCurRow() == end.getCol()){
-                    hittingPiece = piece;
-                    return true;
-                }
-            }
-        }
-        //moving right
-        for(int col = this.getCurCol() + 1; col < end.getCol(); col++){
-            for(Piece piece : board.pieces){
-                if( piece.getCurCol() == col && piece.getCurRow() == end.getCol()){
-                    hittingPiece = piece;
-                    return true;
-                }
-            }
-        }
-        //moving up
-        for(int row = this.getCurRow() - 1; row > end.getRow(); row--){
-            for(Piece piece : board.pieces){
-                if( piece.getCurRow() == row && piece.getCurRow() == end.getRow()){
-                    hittingPiece = piece;
-                    return true;
-                }
-            }
-        }
-        //moving down
-        for(int row = this.getCurRow() + 1; row < end.getRow(); row++){
-            for(Piece piece : board.pieces){
-                if( piece.getCurRow() == row && piece.getCurRow() == end.getRow()){
-                    hittingPiece = piece;
-                    return true;
-                }
-            }
-        }
-        // no piece on cross
-        return false;
-    }
 
     @Override
     protected void setName(){

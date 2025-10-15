@@ -25,8 +25,16 @@ public class Board {
         if(startPiece.canMove(this, start, end)){
             start.setPiece(null);
             startPiece.hasMoved = true;
+            Piece capturedPiece = end.getPiece();
+            if(capturedPiece != null){
+                pieces.remove(capturedPiece);
+            }
             end.setPiece(startPiece);
+            //can add captured pieces here.
+            startPiece.setCurCol(end.getCol());
+            startPiece.setCurRow(end.getRow());
         }
+
         //else throw an error that piece can not make that move.
 
     }

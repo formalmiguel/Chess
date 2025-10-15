@@ -67,7 +67,7 @@ public abstract class Piece {
         //moving up
         for(int row = this.getCurRow() - 1; row > end.getRow(); row--){
             for(Piece piece : board.pieces){
-                if( piece.getCurRow() == row && piece.getCurRow() == end.getRow()){
+                if( piece.getCurCol() == end.getCol() && piece.getCurRow() == row){
                     hittingPiece = piece;
                     return true;
                 }
@@ -76,7 +76,7 @@ public abstract class Piece {
         //moving down
         for(int row = this.getCurRow() + 1; row < end.getRow(); row++){
             for(Piece piece : board.pieces){
-                if( piece.getCurRow() == row && piece.getCurRow() == end.getRow()){
+                if( piece.getCurCol() == end.getCol() && piece.getCurRow() == row){
                     hittingPiece = piece;
                     return true;
                 }

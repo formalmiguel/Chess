@@ -1,7 +1,7 @@
 package chess.pieces;
 import chess.board.*;
 
-public class Rook extends Queen{
+public class Rook extends Piece{
     public Rook(boolean white, int row, int col){
         super(white, row, col);
         this.setName();
