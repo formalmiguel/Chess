@@ -7,7 +7,7 @@ import java.util.Set;
 public class Board {
     Spot [][] boxes = new Spot[8][8];
     public Set<Piece> pieces = new HashSet<>();
-    public Set<Piece> captured = new HashSet<>();
+//    public Set<Piece> temp = new HashSet<>();
 
     public Board(){
         this.resetBoard();
@@ -17,29 +17,32 @@ public class Board {
         Piece movingPiece = start.getPiece();
         Piece capturedPiece = end.getPiece();
         //simulate an attempt
+        Set<Piece> temp = new HashSet<>(pieces);
+
         start.setPiece(null);
         end.setPiece(movingPiece);
         movingPiece.setCurRow(end.getRow());
         movingPiece.setCurCol(end.getCol());
         if(capturedPiece != null){
-            pieces.remove(capturedPiece);
+            temp.remove(capturedPiece);
         }
+
+        Set<Piece> realPieces = pieces;
+        pieces = temp;
 
         boolean isKingInCheck = isInCheck(movingPiece.isWhite());
 
         //undo attempt
+        pieces = realPieces;
         start.setPiece(movingPiece);
         end.setPiece(capturedPiece);
         movingPiece.setCurRow(start.getRow());
         movingPiece.setCurCol(start.getCol());
-        if(capturedPiece != null) {
-            pieces.add(capturedPiece);
-        }
 
-        return false;
+        return isKingInCheck;
     }
 
-    private boolean isInCheck(boolean white){
+    public boolean isInCheck(boolean white){
         Piece king = null;
         for(Piece p : pieces){
             if(p.isWhite() == white && p.getName().charAt(1) == 'K'){
@@ -59,7 +62,35 @@ public class Board {
         } catch (Exception e) {
             System.out.println("king isn't on board");
         }
+
         return false;
+    }
+
+    public boolean isCheckmate(boolean white){
+        if(!isInCheck(white)){
+            return false; // can't be in checkmate without being in check
+        }
+
+        for(Piece p : pieces){
+            if(p.isWhite() == white){
+                int row = p.getCurRow();
+                int col = p.getCurCol();
+                //try every piece's every move
+                for(int r = 0; r<8;r++){
+                    for(int c = 0; c < 8; c++){
+                        Spot start = boxes[row][col];
+                        Spot end = boxes[r][c];
+                        if(!p.canMove(this,end) || start.equals(end)){
+                            continue; //can't move to here
+                        }
+                        if(!isIllegal(start,end)){
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     public Spot getSpot(int row, int col) throws Exception {
@@ -85,6 +116,8 @@ public class Board {
             //can add captured pieces here.
             startPiece.setCurCol(end.getCol());
             startPiece.setCurRow(end.getRow());
+        } else{
+            throw new RuntimeException("Was not able to make move");
         }
 
         //else throw an error that piece can not make that move.

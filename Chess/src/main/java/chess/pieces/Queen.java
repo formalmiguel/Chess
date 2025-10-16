@@ -10,7 +10,10 @@ public class Queen extends Piece{
 
     @Override
     public boolean canMove(Board board,Spot end) {
-
+        boolean empty = end.getPiece() == null;
+        if ( !empty && end.getPiece().isWhite() == this.isWhite()) { // if end piece is same as white
+            return false;
+        }
         boolean diagMath = Math.abs(end.getCol()- getCurCol()) == Math.abs(end.getRow()- getCurRow());
         boolean crossMath = end.getCol() == getCurCol() || end.getRow() == getCurRow();
 

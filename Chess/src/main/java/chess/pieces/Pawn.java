@@ -10,6 +10,10 @@ public class Pawn extends Piece{
 
     @Override
     public boolean canMove(Board board,Spot end) {
+        boolean empty = end.getPiece() == null;
+        if ( !empty && end.getPiece().isWhite() == this.isWhite()) { // if end piece is same as white
+            return false;
+        }
         int direction = this.isWhite() ? -1 : 1;
         hittingPiece = end.getPiece();
         //1 square up

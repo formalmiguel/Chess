@@ -9,6 +9,10 @@ public class Knight extends Piece {
 
     @Override
     public boolean canMove(Board board,Spot end) {
+        boolean empty = end.getPiece() == null;
+        if ( !empty && end.getPiece().isWhite() == this.isWhite()) { // if end piece is same as white
+            return false;
+        }
         int colDif = Math.abs(end.getCol()-this.getCurCol());
         int rowDif = Math.abs(end.getRow()- this.getCurRow());
 
