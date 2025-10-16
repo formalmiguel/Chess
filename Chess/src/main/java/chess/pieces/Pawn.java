@@ -9,7 +9,7 @@ public class Pawn extends Piece{
     }
 
     @Override
-    public boolean canMove(Board board, Spot start, Spot end) {
+    public boolean canMove(Board board,Spot end) {
         int direction = this.isWhite() ? -1 : 1;
         hittingPiece = end.getPiece();
         //1 square up

@@ -87,7 +87,7 @@ public abstract class Piece {
     }
 
     protected abstract void setName();
-    public abstract boolean canMove(Board board, Spot start, Spot end);
+    public abstract boolean canMove(Board board, Spot end);
 
     public int getCurRow() {
         return curRow;

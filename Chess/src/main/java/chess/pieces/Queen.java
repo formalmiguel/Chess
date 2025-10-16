@@ -9,7 +9,7 @@ public class Queen extends Piece{
     }
 
     @Override
-    public boolean canMove(Board board, Spot start, Spot end) {
+    public boolean canMove(Board board,Spot end) {
 
         boolean diagMath = Math.abs(end.getCol()- getCurCol()) == Math.abs(end.getRow()- getCurRow());
         boolean crossMath = end.getCol() == getCurCol() || end.getRow() == getCurRow();

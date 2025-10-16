@@ -13,6 +13,55 @@ public class Board {
         this.resetBoard();
     }
 
+    private boolean isIllegal(Spot start, Spot end){
+        Piece movingPiece = start.getPiece();
+        Piece capturedPiece = end.getPiece();
+        //simulate an attempt
+        start.setPiece(null);
+        end.setPiece(movingPiece);
+        movingPiece.setCurRow(end.getRow());
+        movingPiece.setCurCol(end.getCol());
+        if(capturedPiece != null){
+            pieces.remove(capturedPiece);
+        }
+
+        boolean isKingInCheck = isInCheck(movingPiece.isWhite());
+
+        //undo attempt
+        start.setPiece(movingPiece);
+        end.setPiece(capturedPiece);
+        movingPiece.setCurRow(start.getRow());
+        movingPiece.setCurCol(start.getCol());
+        if(capturedPiece != null) {
+            pieces.add(capturedPiece);
+        }
+
+        return false;
+    }
+
+    private boolean isInCheck(boolean white){
+        Piece king = null;
+        for(Piece p : pieces){
+            if(p.isWhite() == white && p.getName().charAt(1) == 'K'){
+                king = p;
+                break;
+            }
+        }
+        try{
+            assert king != null;
+            Spot kingSpot = getSpot(king.getCurRow(), king.getCurCol()); //maybe we should just use spot array?
+            for(Piece p : pieces){
+                if(p.isWhite() != white && p.canMove(this, kingSpot)){
+                    return true;
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("king isn't on board");
+        }
+        return false;
+    }
+
     public Spot getSpot(int row, int col) throws Exception {
         if(row < 0 || row > 7 || col < 0 || col > 7){
             throw new Exception("Index out of bounds");
@@ -22,14 +71,17 @@ public class Board {
     }
     public void MovePiece(Spot start, Spot end){
         Piece startPiece = start.getPiece();
-        if(startPiece.canMove(this, start, end)){
-            start.setPiece(null);
-            startPiece.hasMoved = true;
+        if(startPiece.canMove(this, end) && !isIllegal(start, end)){
             Piece capturedPiece = end.getPiece();
             if(capturedPiece != null){
                 pieces.remove(capturedPiece);
             }
+
+            start.setPiece(null);
             end.setPiece(startPiece);
+            startPiece.hasMoved = true;
+
+
             //can add captured pieces here.
             startPiece.setCurCol(end.getCol());
             startPiece.setCurRow(end.getRow());

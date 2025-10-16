@@ -64,7 +64,7 @@ public class BoardTest {
             Spot end = board.getSpot(5, 1);
 
 
-            boolean can = start.getPiece().canMove(board, start, end);
+            boolean can = start.getPiece().canMove(board, end);
             assertTrue(can);
 
         } catch (Exception e) {
@@ -76,7 +76,7 @@ public class BoardTest {
         try {
             Spot start = board.getSpot(6, 2);
             Spot end = board.getSpot(4, 2);
-            boolean can = start.getPiece().canMove(board, start, end);
+            boolean can = start.getPiece().canMove(board end);
             assertTrue(can);
 
         } catch (Exception e) {
@@ -90,12 +90,12 @@ public class BoardTest {
             Spot start1 = board.getSpot(6, 3);
 
             Spot end1 = board.getSpot(5, 3);
-            start1.getPiece().canMove(board, start1, end1);
+            start1.getPiece().canMove(board, end1);
 
             Spot start = board.getSpot(6, 3);
             Spot end = board.getSpot(4, 3);
 
-            boolean can = start.getPiece().canMove(board, start, end);
+            boolean can = start.getPiece().canMove(board, end);
             assertFalse(can);
 
         } catch (Exception e) {

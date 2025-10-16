@@ -9,9 +9,9 @@ public class King extends Piece {
     }
 
     @Override
-    public boolean canMove(Board board, Spot start, Spot end) {
-        int colDif = Math.abs(end.getCol()-start.getCol());
-        int rowDif = Math.abs(end.getRow()- start.getRow());
+    public boolean canMove(Board board,  Spot end) {
+        int colDif = Math.abs(end.getCol()-this.getCurCol());
+        int rowDif = Math.abs(end.getRow()- this.getCurRow());
         if(colDif + rowDif == 1 || colDif * rowDif == 1){
             return isValidSquare(end);
         }
