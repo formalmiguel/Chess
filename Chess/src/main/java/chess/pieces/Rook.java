@@ -5,6 +5,7 @@ public class Rook extends Piece{
     public Rook(boolean white, int row, int col){
         super(white, row, col);
         this.setName();
+        this.UNICODE_PIECE = this.isWhite() ? "♖": "♜";
     }
 
     @Override

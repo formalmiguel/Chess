@@ -2,10 +2,13 @@ package chess.pieces;
 import chess.board.*;
 
 public class Bishop extends Queen{
+
     public Bishop(boolean white, int row, int col){
         super(white, row, col);
         this.setName();
+        this.UNICODE_PIECE = this.isWhite() ? "♗" : "♝";
     }
+
     @Override
     public boolean canMove(Board board, Spot end) {
         boolean empty = end.getPiece() == null;

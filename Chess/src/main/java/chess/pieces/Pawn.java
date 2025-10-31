@@ -6,6 +6,7 @@ public class Pawn extends Piece{
     public Pawn(boolean white, int row, int col){
         super(white, row, col);
         this.setName();
+        this.UNICODE_PIECE = this.isWhite() ? "♙": "♟";
     }
 
     @Override

@@ -8,6 +8,7 @@ public abstract class Piece {
     public Piece hittingPiece;
     private int curRow;
     private int curCol;
+    protected String UNICODE_PIECE;
 
     public Piece(boolean white, int row, int col){
         this.setWhite(white);
@@ -45,6 +46,7 @@ public abstract class Piece {
         }
         return false;
     }
+
     public boolean pieceOnCross(Spot end, Board board){
         //moving left?
         for(int col = this.getCurCol() - 1; col > end.getCol(); col--){
@@ -103,6 +105,10 @@ public abstract class Piece {
 
     public void setCurCol(int curCol) {
         this.curCol = curCol;
+    }
+
+    public String getUNICODE_PIECE(){
+        return this.UNICODE_PIECE;
     }
 }
 
