@@ -37,16 +37,17 @@ public class Game {
                 }
             try{
                 if(input.length() != 5 || input.charAt(2) != ' '){
+                    //could also add some bound checking here.
                     System.out.println("Use a format like 'e2 e4'");
                     continue;
                 }
-                int startCol = input.charAt(0) - 'a';
+                int startCol = input.charAt(0) - 'a'; // gives us col #
                 int startRow = 8 - (input.charAt(1) - '0');
 
                 int endCol = input.charAt(3) - 'a';
                 int endRow = 8 - (input.charAt(4) - '0');
                 // add checking for input
-                Spot startSpot = board.getSpot(startRow, startCol);
+                Spot startSpot = board.getSpot(startRow, startCol); // can throw error if out of bounds
                 Spot destination =  board.getSpot(endRow,endCol);
 
                 if(startSpot.getPiece() == null || startSpot.getPiece().isWhite() != currentPlayer.Color()){
@@ -57,10 +58,12 @@ public class Game {
                 board.MovePiece(startSpot, destination); //both will be valid
 
                 boolean opponent = !currentPlayer.Color();
+
                 if(board.isCheckmate(opponent)){
                     board.printBoard();
                     System.out.println("Checkmate! " + (currentPlayer.Color() ? "White": "Black") + " wins.");
                     break;
+                    //add stalemate logic after this
                 } else if (board.isInCheck(opponent)) {
                     System.out.println((opponent ? "White": "Black") + " is in check.");
                 }
@@ -70,7 +73,6 @@ public class Game {
 
             } catch (Exception e) {
                 System.out.println(e);
-
             }
 
 
