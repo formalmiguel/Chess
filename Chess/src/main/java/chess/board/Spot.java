@@ -2,25 +2,52 @@ package chess.board;
 
 import chess.pieces.Piece;
 
-public class Spot {
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class Spot extends JPanel {
     private Piece piece;
     private int row;
     private int col;
     public String name;
     private String tileName;
+    private Color color;
 
     public Spot(int row, int col, Piece piece){
-        this.setPiece(piece);
+
         this.setRow(row);
         this.setCol(col);
-        this.setTileName();
+        this.setSquareName();
         this.setName(piece);
+
+        setFont(new Font("Serif", Font.BOLD, 64));
+
+        setBackground(this.color);
+        setLayout(new BorderLayout());
+        setPreferredSize(new Dimension(80, 80));
+        this.setPiece(piece);
+
     }
 
     public void setPiece(Piece p){
         this.piece = p;
         this.setName(p);
+
+        removeAll();
+        String cur = p == null ? "" : p.getUNICODE_PIECE();
+
+        JLabel pieceLabel = new JLabel(cur);
+        pieceLabel.setFont(getFont());
+        pieceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        pieceLabel.setVerticalAlignment(SwingConstants.CENTER);
+        add(pieceLabel, BorderLayout.CENTER);
+
+        revalidate();
+        repaint();
     }
+
     public Piece getPiece(){
         return this.piece;
     }
@@ -52,13 +79,15 @@ public class Spot {
     public String getName() {
         return name;
     }
-    public void setTileName(){
+    public void setSquareName(){
         if((this.col % 2 == 0) == (this.row % 2 == 0)){
             this.tileName = "   ";
+            this.color =  new Color(240, 217, 181);
+
         }else{
             this.tileName = "## ";
+            this.color = new Color(181, 136, 99);
         }
-
-
     }
+
 }
