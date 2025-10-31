@@ -1,15 +1,21 @@
 package chess.board;
 import chess.pieces.*;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Board {
-    Spot [][] boxes = new Spot[8][8];
+public class Board extends JPanel {
+    private final Spot [][] boxes = new Spot[8][8];
+    public Spot selectedSpot = null;
     public Set<Piece> pieces = new HashSet<>();
 //    public Set<Piece> temp = new HashSet<>();
 
     public Board(){
+        setLayout(new GridLayout(8,8));
         this.resetBoard();
     }
 
@@ -125,6 +131,8 @@ public class Board {
     }
 
     public void resetBoard(){
+        removeAll();
+        pieces.clear();
 
         boxes[0][0] = new Spot(0, 0, new Rook(false, 0, 0));
         boxes[0][1] = new Spot(0, 1, new Knight(false, 0, 1));
@@ -170,6 +178,23 @@ public class Board {
             }
         }
 
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                Spot spot = boxes[row][col];
+                spot.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        handleMouseClick(spot);
+                    }
+                });
+                add(spot);
+
+            }
+        }
+
+        revalidate();
+        repaint();
+
     }
 
     public String stringBoard(){
@@ -187,6 +212,38 @@ public class Board {
 
     public void printBoard(){
         System.out.println(this.stringBoard());
+    }
+
+    private void handleMouseClick(Spot clickedSpot) {
+        // no piece selected yet
+        if (selectedSpot == null) {
+            //spot clicked has a piece
+            if (clickedSpot.getPiece() != null) {
+                selectedSpot = clickedSpot;
+                clickedSpot.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
+            }
+            return;
+        }
+
+        // same spot clicked again so, deselect
+        if (selectedSpot == clickedSpot) {
+            selectedSpot.setBorder(null);
+            selectedSpot = null;
+            return;
+        }
+
+        try {
+            // try to move the piece
+            MovePiece(selectedSpot, clickedSpot);
+        } catch (RuntimeException ex) {
+            System.out.println("Invalid move: " + ex.getMessage());
+        }
+
+        selectedSpot.setBorder(null);
+        selectedSpot = null;
+
+        revalidate();
+        repaint();
     }
 
 }
