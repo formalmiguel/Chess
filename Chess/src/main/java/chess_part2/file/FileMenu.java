@@ -16,10 +16,14 @@ public class FileMenu {
         JMenuBar menuBar = new JMenuBar();
 
         JMenu fileMenu = new JMenu("File");
+        JMenu settingsMenu = new JMenu("Settings");
+
+        JMenuItem showSettingMenu = new JMenuItem("Options");
 
         JMenuItem newGame = new JMenuItem("New Game");
         JMenuItem saveGame = new JMenuItem("Save Game");
         JMenuItem loadGame = new JMenuItem("Load Game");
+
         newGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -44,11 +48,21 @@ public class FileMenu {
             }
         });
 
+        showSettingMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Pop up window");
+            }
+        });
+
         fileMenu.add(newGame);
         fileMenu.add(saveGame);
         fileMenu.add(loadGame);
 
+        settingsMenu.add(showSettingMenu);
+
         menuBar.add(fileMenu);
+        menuBar.add(settingsMenu);
 
         return menuBar;
     }

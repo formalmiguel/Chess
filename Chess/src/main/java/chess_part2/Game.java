@@ -16,8 +16,7 @@ public class Game {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.add(board);
 
-            FileMenu fileMenu = new FileMenu(board);
-            frame.setJMenuBar(fileMenu.createMenuBar());
+            frame.setJMenuBar(new FileMenu(board).createMenuBar());
 
             frame.pack();
             frame.setLocationRelativeTo(null);
