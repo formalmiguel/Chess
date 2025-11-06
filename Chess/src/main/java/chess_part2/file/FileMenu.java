@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 
 public class FileMenu {
     private Board board; // reference to your Board
-
     public FileMenu(Board board) {
         this.board = board;
     }
@@ -25,12 +24,14 @@ public class FileMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("new game");
+                board.resetBoard();
             }
         });
 
         saveGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                SaveGame.save(board);
                 System.out.println("save game");
             }
         });
@@ -38,6 +39,7 @@ public class FileMenu {
         loadGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                LoadGame.load(board);
                 System.out.println("load game");
             }
         });
