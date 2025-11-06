@@ -301,5 +301,38 @@ public class Board extends JPanel {
         revalidate();
         repaint();
     }
+    public void setDarkSquareColor(Color color){
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                if ((i + j) % 2 != 0) {
+                    boxes[i][j].setColor(color);
+                }
+            }
+        }
+        revalidate();
+        repaint();
+    }
+
+    public void setLightSquareColor(Color color){
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                if ((i + j) % 2 == 0) {
+                    boxes[i][j].setColor(color);
+                }
+            }
+        }
+        revalidate();
+        repaint();
+    }
+
+//    public void setFont(Font font){
+//        for(int i = 0; i < 8; i++){
+//            for(int j = 0; j < 8; j++){
+//                    boxes[i][j].setFont(font);
+//            }
+//        }
+//        revalidate();
+//        repaint();
+//    }
 }
 

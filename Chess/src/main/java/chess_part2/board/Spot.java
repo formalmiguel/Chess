@@ -20,7 +20,10 @@ public class Spot extends JPanel {
         this.setSquareName();
         this.setName(piece);
 
-        setFont(new Font("Serif", Font.BOLD, 64));
+//        setFont(new Font("Monospaced", Font.BOLD, 64));
+        setFont(new Font("DialogInput", Font.BOLD, 64));
+//        setFont(new Font("Serif", Font.BOLD, 64));
+
 
         setBackground(this.color);
         setLayout(new BorderLayout());
@@ -77,6 +80,7 @@ public class Spot extends JPanel {
     public String getName() {
         return name;
     }
+
     public void setSquareName(){
         if((this.col % 2 == 0) == (this.row % 2 == 0)){
             this.tileName = "   ";
@@ -86,6 +90,11 @@ public class Spot extends JPanel {
             this.tileName = "## ";
             this.color = new Color(181, 136, 99);
         }
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+        setBackground(this.color);
     }
 
 }
