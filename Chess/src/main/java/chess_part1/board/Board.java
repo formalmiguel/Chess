@@ -1,5 +1,5 @@
-package chess.board;
-import chess.pieces.*;
+package chess_part1.board;
+import chess_part1.pieces.*;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,5 +1,5 @@
-package chess.player;
-import chess.pieces.Piece;
+package chess_part1.player;
+import chess_part1.pieces.Piece;
 
 public class Player {
 

@@ -1,7 +1,7 @@
-package chess;
+package chess_part1;
 
-import chess.board.*;
-import chess.player.Player;
+import chess_part1.board.*;
+import chess_part1.player.Player;
 import java.util.Scanner;
 
 public class Game {

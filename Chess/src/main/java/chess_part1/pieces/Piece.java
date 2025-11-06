@@ -1,5 +1,5 @@
-package chess.pieces;
-import chess.board.*;
+package chess_part1.pieces;
+import chess_part1.board.*;
 
 public abstract class Piece {
     protected boolean white;
