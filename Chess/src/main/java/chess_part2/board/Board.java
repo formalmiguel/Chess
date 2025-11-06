@@ -18,7 +18,6 @@ public class Board extends JPanel {
 
     public Board(){
         setLayout(new GridLayout(8,8));
-        this.resetBoard();
     }
 
     private boolean isIllegal(Spot start, Spot end){
@@ -108,6 +107,7 @@ public class Board extends JPanel {
 
         return boxes [row][col];
     }
+
     public void MovePiece(Spot start, Spot end){
         Piece startPiece = start.getPiece();
         if(startPiece.canMove(this, end) && !isIllegal(start, end)){
@@ -265,5 +265,41 @@ public class Board extends JPanel {
         repaint();
     }
 
+    public boolean isWhiteTurn(){
+        return whiteTurn;
+    }
+
+    public void setWhiteTurn(boolean whiteTurn){
+        this.whiteTurn = whiteTurn;
+    }
+
+    public void addPiece(Piece p, int row, int col){
+        Spot spot = boxes[row][col];
+        spot.setPiece(p);
+        p.setCurRow(row);
+        p.setCurCol(col);
+        pieces.add(p);
+    }
+
+    public void clearBoard(){
+        removeAll();
+        pieces.clear();
+
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                boxes[i][j] = new Spot(i, j, null);
+                Spot spot = boxes[i][j];
+                spot.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        handleMouseClick(spot);
+                    }
+                });
+                add(spot);
+            }
+        }
+        revalidate();
+        repaint();
+    }
 }
 
