@@ -20,7 +20,7 @@ public class Game {
             frame.pack();
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
-            frame.setSize(new Dimension(1100, 800));
+            frame.setSize(new Dimension(800, 800));
         });
     }
 }
