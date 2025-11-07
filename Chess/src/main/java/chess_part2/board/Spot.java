@@ -23,6 +23,7 @@ public class Spot extends JPanel {
         setFont(new Font("DialogInput", Font.BOLD, 64));
 
 
+
         setBackground(this.color);
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(80, 80));
@@ -95,8 +96,19 @@ public class Spot extends JPanel {
 
     public void setPieceFont(Font font) {
         pieceLabel.setFont(font);
+
         revalidate();
         repaint();
     }
+
+    public void setPieceFontColor(Color color) {
+        if (pieceLabel != null) {
+            pieceLabel.setForeground(color);
+            revalidate();
+            repaint();
+        }
+    }
+
+
 
 }
