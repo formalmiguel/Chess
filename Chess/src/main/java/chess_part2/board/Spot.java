@@ -12,6 +12,7 @@ public class Spot extends JPanel {
     public String name;
     private String tileName;
     private Color color;
+    private JLabel pieceLabel;
 
     public Spot(int row, int col, Piece piece){
 
@@ -19,15 +20,17 @@ public class Spot extends JPanel {
         this.setCol(col);
         this.setSquareName();
         this.setName(piece);
-
-//        setFont(new Font("Monospaced", Font.BOLD, 64));
         setFont(new Font("DialogInput", Font.BOLD, 64));
-//        setFont(new Font("Serif", Font.BOLD, 64));
 
 
         setBackground(this.color);
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(80, 80));
+
+        pieceLabel = new JLabel("", SwingConstants.CENTER);
+        pieceLabel.setFont(new Font("DialogInput", Font.BOLD, 64));
+        add(pieceLabel, BorderLayout.CENTER);
+
         this.setPiece(piece);
 
     }
@@ -35,16 +38,9 @@ public class Spot extends JPanel {
     public void setPiece(Piece p){
         this.piece = p;
         this.setName(p);
-
-        removeAll();
         String cur = p == null ? "" : p.getUNICODE_PIECE();
 
-        JLabel pieceLabel = new JLabel(cur);
-        pieceLabel.setFont(getFont());
-        pieceLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        pieceLabel.setVerticalAlignment(SwingConstants.CENTER);
-        add(pieceLabel, BorderLayout.CENTER);
-
+        pieceLabel.setText(cur);
         revalidate();
         repaint();
     }
@@ -95,6 +91,12 @@ public class Spot extends JPanel {
     public void setColor(Color color) {
         this.color = color;
         setBackground(this.color);
+    }
+
+    public void setPieceFont(Font font) {
+        pieceLabel.setFont(font);
+        revalidate();
+        repaint();
     }
 
 }
