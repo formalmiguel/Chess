@@ -11,12 +11,14 @@ public class SettingsWindow extends JDialog {
 
     private Color priorLightColor = new Color(240, 217, 181);
     private Color priorDarkColor = new Color(181, 136, 99);
-    private Color curLighColor;
-    private Color curDarkColor;
-    private Dimension curSize;
+    private Color curLightColor = priorLightColor;
+    private Color curDarkColor = priorDarkColor;
     private Dimension priorSize = new Dimension(800, 800);
+    private Dimension curSize = priorSize;
     private Font priorFont = new Font("DialogInput", Font.BOLD, 64);
-    private Font curFont;
+    private Font curFont = priorFont;
+    private Color priorPieceColor = Color.black;
+    private Color curPieceColor = priorPieceColor;
 
     public SettingsWindow(JFrame parent, Board board) {
         super(parent, "Settings", true);
@@ -38,15 +40,15 @@ public class SettingsWindow extends JDialog {
         JButton darkColorBtn = new JButton("Choose...");
         settingsPanel.add(darkColorBtn);
 
-        settingsPanel.add(new JLabel("Piece font:"));
-        String[] fonts = {"Monospaced", "Serif", "DialogInput"};
-        JComboBox<String> fontCombo = new JComboBox<>(fonts);
-        settingsPanel.add(fontCombo);
+        settingsPanel.add(new JLabel("Piece color:"));
+        JButton pieceColorBtn = new JButton("Choose...");
+        settingsPanel.add(pieceColorBtn);
 
         settingsPanel.add(new JLabel("Board Size:"));
         String[] sizes = {"Medium", "Small", "Large"};
         JComboBox<String> sizesCombo = new JComboBox<>(sizes);
         settingsPanel.add(sizesCombo);
+
 
         JPanel buttonPanel = new JPanel();
         JButton applyBtn = new JButton("Apply");
@@ -60,7 +62,7 @@ public class SettingsWindow extends JDialog {
         lightColorBtn.addActionListener(e -> {
             Color color = JColorChooser.showDialog(this, "Choose Light Square Color", Color.LIGHT_GRAY);
             if (color != null) {
-                curLighColor = color;
+                curLightColor = color;
                 board.setLightSquareColor(color);
             }
         });
@@ -70,6 +72,14 @@ public class SettingsWindow extends JDialog {
             if (color != null) {
                 curDarkColor = color;
                 board.setDarkSquareColor(color);
+            }
+        });
+
+        pieceColorBtn.addActionListener(e -> {
+            Color color = JColorChooser.showDialog(this, "Choose Piece Color", Color.BLACK);
+            if (color != null) {
+                curPieceColor = color;
+                board.setPiecesFontColor(color);
             }
         });
 
@@ -100,7 +110,7 @@ public class SettingsWindow extends JDialog {
                     case "Large":
                         System.out.println("User chose Large board");
                         Dimension large = new Dimension(1200,1200);
-                        Font largeFont = new Font("DialogInput", Font.BOLD, 120);
+                        Font largeFont = new Font("Monospaced", Font.BOLD, 120);
                         parent.setSize(large);
                         board.setPiecesFont(largeFont);
                         curSize = large;
@@ -109,7 +119,8 @@ public class SettingsWindow extends JDialog {
                     default:
                         break;
                 }
-
+                System.out.println(priorSize);
+                System.out.println(curSize);
                  board.revalidate();
                  board.repaint();
             }
@@ -119,22 +130,29 @@ public class SettingsWindow extends JDialog {
 
 
         applyBtn.addActionListener(e -> {
-            // Apply settings to the board
             priorSize = curSize;
-            priorLightColor = curLighColor;
+            priorLightColor = curLightColor;
             priorDarkColor = curDarkColor;
             priorFont = curFont;
+            priorPieceColor = curPieceColor;
             dispose();
         });
 
         cancelBtn.addActionListener(e -> {
-            // Reset to prior settings
             parent.setSize(priorSize);
             board.setLightSquareColor(priorLightColor);
             board.setDarkSquareColor(priorDarkColor);
             board.setPiecesFont(priorFont);
+            board.setPiecesFontColor(priorPieceColor);
+            curSize = priorSize;
+            curLightColor = priorLightColor;
+            curDarkColor = priorDarkColor;
+            curFont = priorFont;
+            curPieceColor = priorPieceColor;
             dispose();
         });
+
+
     }
 
     public void showSettings() {
