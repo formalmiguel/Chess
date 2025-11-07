@@ -325,14 +325,12 @@ public class Board extends JPanel {
         repaint();
     }
 
-//    public void setFont(Font font){
-//        for(int i = 0; i < 8; i++){
-//            for(int j = 0; j < 8; j++){
-//                    boxes[i][j].setFont(font);
-//            }
-//        }
-//        revalidate();
-//        repaint();
-//    }
+    public void setPiecesFont(Font font){
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                boxes[i][j].setPieceFont(font);
+            }
+        }
+    }
 }
 
