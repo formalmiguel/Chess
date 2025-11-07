@@ -15,8 +15,7 @@ public class Game {
             JFrame frame = new JFrame("Chess Game");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.add(board);
-
-            frame.setJMenuBar(new FileMenu(board).createMenuBar());
+            frame.setJMenuBar(new FileMenu(board, frame).createMenuBar());
 
             frame.pack();
             frame.setLocationRelativeTo(null);
