@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 public class FileMenu {
     private Board board; // reference to your Board
     private JFrame curFrame;
+    private SettingsWindow settingsWindow;
 
     public FileMenu(Board board, JFrame curFrame) {
         this.board = board;
@@ -54,9 +55,10 @@ public class FileMenu {
         showSettingMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SettingsWindow settingsWindow = new SettingsWindow(curFrame, board);
+                if (settingsWindow == null) {
+                    settingsWindow = new SettingsWindow(curFrame, board);
+                }
                 settingsWindow.showSettings();
-                System.out.println("Pop up window");
             }
         });
 
