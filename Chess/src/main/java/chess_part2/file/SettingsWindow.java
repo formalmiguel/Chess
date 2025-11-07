@@ -3,6 +3,8 @@ import chess_part2.board.Board;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class SettingsWindow extends JDialog {
     private Board board; // reference to the chess board to update settings
@@ -11,6 +13,10 @@ public class SettingsWindow extends JDialog {
     private Color priorDarkColor = new Color(181, 136, 99);
     private Color curLighColor;
     private Color curDarkColor;
+    private Dimension curSize;
+    private Dimension priorSize = new Dimension(800, 800);
+    private Font priorFont = new Font("DialogInput", Font.BOLD, 64);
+    private Font curFont;
 
     public SettingsWindow(JFrame parent, Board board) {
         super(parent, "Settings", true);
@@ -37,6 +43,11 @@ public class SettingsWindow extends JDialog {
         JComboBox<String> fontCombo = new JComboBox<>(fonts);
         settingsPanel.add(fontCombo);
 
+        settingsPanel.add(new JLabel("Board Size:"));
+        String[] sizes = {"Medium", "Small", "Large"};
+        JComboBox<String> sizesCombo = new JComboBox<>(sizes);
+        settingsPanel.add(sizesCombo);
+
         JPanel buttonPanel = new JPanel();
         JButton applyBtn = new JButton("Apply");
         JButton cancelBtn = new JButton("Cancel");
@@ -62,17 +73,66 @@ public class SettingsWindow extends JDialog {
             }
         });
 
+        sizesCombo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedSize = (String) sizesCombo.getSelectedItem();
+
+                switch (selectedSize) {
+                    case "Small":
+                        System.out.println("User chose Small board");
+                        Dimension small = new Dimension(400, 400);
+                        Font smallFont = new Font("DialogInput", Font.BOLD, 42);
+                        parent.setSize(small);
+                        board.setPiecesFont(smallFont);
+                        curSize = small;
+                        curFont = smallFont;
+                        break;
+                    case "Medium":
+                        System.out.println("User chose Medium board");
+                        Dimension medium = new Dimension(800, 800);
+                        Font mediumFont = new Font("DialogInput", Font.BOLD, 64);
+                        parent.setSize(medium);
+                        board.setPiecesFont(mediumFont);
+                        curSize = medium;
+                        curFont = mediumFont;
+                        break;
+                    case "Large":
+                        System.out.println("User chose Large board");
+                        Dimension large = new Dimension(1200,1200);
+                        Font largeFont = new Font("DialogInput", Font.BOLD, 120);
+                        parent.setSize(large);
+                        board.setPiecesFont(largeFont);
+                        curSize = large;
+                        curFont = largeFont;
+                        break;
+                    default:
+                        break;
+                }
+
+                 board.revalidate();
+                 board.repaint();
+            }
+        });
+
+
+
+
         applyBtn.addActionListener(e -> {
             // Apply settings to the board
+            priorSize = curSize;
             priorLightColor = curLighColor;
             priorDarkColor = curDarkColor;
+            priorFont = curFont;
             dispose();
         });
 
         cancelBtn.addActionListener(e -> {
             // Reset to prior settings
+            parent.setSize(priorSize);
             board.setLightSquareColor(priorLightColor);
             board.setDarkSquareColor(priorDarkColor);
+            board.setPiecesFont(priorFont);
             dispose();
         });
     }
