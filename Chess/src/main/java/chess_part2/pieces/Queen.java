@@ -6,7 +6,6 @@ import chess_part2.board.Spot;
 public class Queen extends Piece{
     public Queen(boolean white, int row, int col){
         super(white, row, col);
-        this.setName();
         this.UNICODE_PIECE = this.isWhite() ? "♔" : "♚";
     }
 
