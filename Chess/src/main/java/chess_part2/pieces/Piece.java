@@ -3,6 +3,11 @@ package chess_part2.pieces;
 import chess_part2.board.Board;
 import chess_part2.board.Spot;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+
 public abstract class Piece {
     protected boolean white;
     protected String name;
@@ -11,12 +16,15 @@ public abstract class Piece {
     private int curRow;
     private int curCol;
     protected String UNICODE_PIECE;
+    protected ImageIcon pieceImage;
 
     public Piece(boolean white, int row, int col){
         this.setWhite(white);
         this.hasMoved = false;
         this.setCurRow(row);
         this.setCurCol(col);
+        this.setName();
+        loadPieceImage();
     }
 
     public boolean isWhite(){
@@ -111,6 +119,22 @@ public abstract class Piece {
 
     public String getUNICODE_PIECE(){
         return this.UNICODE_PIECE;
+    }
+
+    protected void loadPieceImage() {
+        String path = "src/main/java/chess_part2/pieces/piecesimg/"+ this.getName().trim() +".png";
+        File imgFile = new File(path);
+        if (imgFile.exists()) {
+            pieceImage = new ImageIcon(path);
+        } else {
+            pieceImage = null;
+            System.out.println("Image not found!");
+        }
+
+    }
+
+    public ImageIcon getImage() {
+        return pieceImage;
     }
 }
 
