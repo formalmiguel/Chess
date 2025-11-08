@@ -6,16 +6,34 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+/**
+ * Represents the menu bar for the chess game window.
+ * Provides menu options for starting a new game, saving/loading games,
+ * and accessing game settings.
+ */
 public class FileMenu {
     private Board board; // reference to your Board
     private JFrame curFrame;
     private SettingsWindow settingsWindow;
-
+    /**
+     * Constructs a FileMenu associated with the specified board and frame.
+     *
+     * @param board    the current game board
+     * @param curFrame the frame where the game is displayed
+     */
     public FileMenu(Board board, JFrame curFrame) {
         this.board = board;
         this.curFrame = curFrame;
     }
 
+    /**
+     * Creates and configures the menu bar for the game.
+     * Adds options for creating a new game, saving/loading a game,
+     * and opening the settings window.
+     *
+     * @return the fully constructed JMenuBar
+     */
     public JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
 

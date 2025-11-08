@@ -6,6 +6,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * A dialog window that allows players to customize the chess game's visual settings,
+ * including board colors, piece style, and board size.
+ * Changes can be previewed immediately and applied or canceled. The previous
+ * configuration is restored if the user cancels.
+ */
 public class SettingsWindow extends JDialog {
     private Board board; // reference to the chess board to update settings
 
@@ -24,6 +30,13 @@ public class SettingsWindow extends JDialog {
     private boolean priorFontMode = false; // false = Image, true = Unicode
     private boolean curFontMode = priorFontMode;
 
+    /**
+     * Creates a new settings dialog that allows users to customize the chess board
+     * and piece appearance.
+     *
+     * @param parent the parent frame to which this dialog is attached
+     * @param board  the {@link Board} instance whose settings are being modified
+     */
     public SettingsWindow(JFrame parent, Board board) {
         super(parent, "Settings", true);
         this.board = board;
@@ -184,7 +197,10 @@ public class SettingsWindow extends JDialog {
 
 
     }
-
+    /**
+     * Displays the settings window to the user.
+     * The method blocks until the dialog is closed.
+     */
     public void showSettings() {
         setVisible(true);
     }

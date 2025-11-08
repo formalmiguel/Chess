@@ -5,10 +5,15 @@ import chess_part2.file.FileMenu;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * Represents a chess game instance.
+ * Responsible for initializing the game window and board.
+ */
 public class Game {
     private final Board board = new Board();
-
+    /**
+     * Starts the chess game by initializing the board and GUI on the Event Dispatch Thread.
+     */
     public void start() {
         SwingUtilities.invokeLater(() -> {
             board.resetBoard();

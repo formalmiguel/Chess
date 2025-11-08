@@ -6,7 +6,25 @@ import chess_part2.pieces.*;
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * Utility class responsible for loading a saved chess game state
+ * from a text file and restoring it to the provided {@link Board}.
+ * The saved game file should be named "chess_save.txt" and
+ * contain lines describing each piece and whose turn it is.
+ * Example:
+ * turn=white
+ * wK 7 4
+ * bQ 0 3
+ */
 public class LoadGame {
+    /**
+     * Loads a saved chess game from "chess_save.txt" and updates
+     * the given board to reflect the saved state.
+     * If the file does not exist, the method prints a message and exits.
+     * The board is cleared before loading any new pieces.
+     *
+     * @param board the {@link Board} object to restore the game state into
+     */
     public static void load(Board board) {
         File file = new File("chess_save.txt");
         if (!file.exists()) {
