@@ -331,6 +331,8 @@ public class Board extends JPanel {
                 boxes[i][j].setPieceFont(font);
             }
         }
+        revalidate();
+        repaint();
     }
 
     public void setPiecesFontColor(Color color) {
@@ -339,6 +341,16 @@ public class Board extends JPanel {
                 boxes[row][col].setPieceFontColor(color);
             }
         }
+    }
+
+    public void resizeImg(int w ) {
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                boxes[row][col].resizeImg(w);
+            }
+        }
+        revalidate();
+        repaint();
     }
 
 
