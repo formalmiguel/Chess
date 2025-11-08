@@ -19,6 +19,10 @@ public class SettingsWindow extends JDialog {
     private Font curFont = priorFont;
     private Color priorPieceColor = Color.black;
     private Color curPieceColor = priorPieceColor;
+    private int priorPieceSize = 80;
+    private int curPieceSize = priorPieceSize;
+    private boolean priorFontMode = false; // false = Image, true = Unicode
+    private boolean curFontMode = priorFontMode;
 
     public SettingsWindow(JFrame parent, Board board) {
         super(parent, "Settings", true);
@@ -40,9 +44,10 @@ public class SettingsWindow extends JDialog {
         JButton darkColorBtn = new JButton("Choose...");
         settingsPanel.add(darkColorBtn);
 
-        settingsPanel.add(new JLabel("Piece color:"));
-        JButton pieceColorBtn = new JButton("Choose...");
-        settingsPanel.add(pieceColorBtn);
+        settingsPanel.add(new JLabel("Piece Style:"));
+        String[] styles = {"Image", "Unicode"};
+        JComboBox<String> stylesCombo = new JComboBox<>(styles);
+        settingsPanel.add(stylesCombo);
 
         settingsPanel.add(new JLabel("Board Size:"));
         String[] sizes = {"Medium", "Small", "Large"};
@@ -75,13 +80,13 @@ public class SettingsWindow extends JDialog {
             }
         });
 
-        pieceColorBtn.addActionListener(e -> {
-            Color color = JColorChooser.showDialog(this, "Choose Piece Color", Color.BLACK);
-            if (color != null) {
-                curPieceColor = color;
-                board.setPiecesFontColor(color);
-            }
-        });
+//        pieceColorBtn.addActionListener(e -> {
+//            Color color = JColorChooser.showDialog(this, "Choose Piece Color", Color.BLACK);
+//            if (color != null) {
+//                curPieceColor = color;
+//                board.setPiecesFontColor(color);
+//            }
+//        });
 
         sizesCombo.addActionListener(new ActionListener() {
             @Override
@@ -90,39 +95,54 @@ public class SettingsWindow extends JDialog {
 
                 switch (selectedSize) {
                     case "Small":
-                        System.out.println("User chose Small board");
-                        Dimension small = new Dimension(400, 400);
-                        Font smallFont = new Font("DialogInput", Font.BOLD, 42);
-                        parent.setSize(small);
-                        board.setPiecesFont(smallFont);
-                        curSize = small;
-                        curFont = smallFont;
+                        curSize = new Dimension(400, 400);
+                        curFont = new Font("DialogInput", Font.BOLD, 42);
+                        curPieceSize = 45;
                         break;
                     case "Medium":
-                        System.out.println("User chose Medium board");
-                        Dimension medium = new Dimension(800, 800);
-                        Font mediumFont = new Font("DialogInput", Font.BOLD, 64);
-                        parent.setSize(medium);
-                        board.setPiecesFont(mediumFont);
-                        curSize = medium;
-                        curFont = mediumFont;
+                        curSize = new Dimension(800, 800);
+                        curFont = new Font("DialogInput", Font.BOLD, 64);
+                        curPieceSize = 80;
                         break;
                     case "Large":
-                        System.out.println("User chose Large board");
-                        Dimension large = new Dimension(1200,1200);
-                        Font largeFont = new Font("Monospaced", Font.BOLD, 120);
-                        parent.setSize(large);
-                        board.setPiecesFont(largeFont);
-                        curSize = large;
-                        curFont = largeFont;
+                        curSize = new Dimension(1200, 1200);
+                        curFont = new Font("Monospaced", Font.BOLD, 120);
+                        curPieceSize = 150;
+                        break;
+                }
+                parent.setSize(curSize);
+
+                if (curFontMode) {
+                    board.setPiecesFont(curFont);
+                } else {
+                    board.resizeImg(curPieceSize);
+                }
+
+                board.revalidate();
+                board.repaint();
+            }
+        });
+
+        stylesCombo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedStyle = (String) stylesCombo.getSelectedItem();
+
+                switch (selectedStyle) {
+                    case "Image":
+                        board.resizeImg(priorPieceSize);
+                        curFontMode = false;
+
+                        break;
+                    case "Unicode":
+                        board.setPiecesFont(priorFont);
+                        curFontMode = true;
                         break;
                     default:
                         break;
                 }
-                System.out.println(priorSize);
-                System.out.println(curSize);
-                 board.revalidate();
-                 board.repaint();
+                board.revalidate();
+                board.repaint();
             }
         });
 
@@ -135,6 +155,8 @@ public class SettingsWindow extends JDialog {
             priorDarkColor = curDarkColor;
             priorFont = curFont;
             priorPieceColor = curPieceColor;
+            priorPieceSize = curPieceSize;
+            priorFontMode = curFontMode;
             dispose();
         });
 
@@ -144,11 +166,19 @@ public class SettingsWindow extends JDialog {
             board.setDarkSquareColor(priorDarkColor);
             board.setPiecesFont(priorFont);
             board.setPiecesFontColor(priorPieceColor);
+            if (priorFontMode) {
+                board.setPiecesFont(priorFont);
+            } else {
+                board.resizeImg(priorPieceSize);
+            }
+
+            curPieceSize = priorPieceSize;
             curSize = priorSize;
             curLightColor = priorLightColor;
             curDarkColor = priorDarkColor;
             curFont = priorFont;
             curPieceColor = priorPieceColor;
+            curFontMode = priorFontMode;
             dispose();
         });
 
