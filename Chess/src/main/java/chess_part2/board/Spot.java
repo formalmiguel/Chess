@@ -23,7 +23,6 @@ public class Spot extends JPanel {
         setFont(new Font("DialogInput", Font.BOLD, 64));
 
 
-
         setBackground(this.color);
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(80, 80));
@@ -39,9 +38,19 @@ public class Spot extends JPanel {
     public void setPiece(Piece p){
         this.piece = p;
         this.setName(p);
-        String cur = p == null ? "" : p.getUNICODE_PIECE();
+        removeAll();
 
-        pieceLabel.setText(cur);
+        if (p != null && p.getImage() != null) {
+            JLabel pieceLabel = new JLabel();
+            ImageIcon icon = p.getImage();
+
+            Image scaled = icon.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+            pieceLabel.setIcon(new ImageIcon(scaled));
+            pieceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            pieceLabel.setVerticalAlignment(SwingConstants.CENTER);
+            add(pieceLabel, BorderLayout.CENTER);
+        }
+
         revalidate();
         repaint();
     }
@@ -95,8 +104,16 @@ public class Spot extends JPanel {
     }
 
     public void setPieceFont(Font font) {
-        pieceLabel.setFont(font);
+        removeAll();
+        JLabel pieceLabel = new JLabel("", SwingConstants.CENTER);
 
+        Piece p = this.piece;
+        this.setName(p);
+        String cur = p == null ? "" : p.getUNICODE_PIECE();
+        pieceLabel.setIcon(null);
+        pieceLabel.setText(cur);
+        pieceLabel.setFont(font);
+        add(pieceLabel, BorderLayout.CENTER);
         revalidate();
         repaint();
     }
@@ -107,6 +124,24 @@ public class Spot extends JPanel {
             revalidate();
             repaint();
         }
+    }
+
+    public void resizeImg(int w) {
+        removeAll();
+
+        if (this.piece != null && this.piece.getImage() != null) {
+            ImageIcon icon = this.piece.getImage();
+
+            Image scaled = icon.getImage().getScaledInstance(w, w, Image.SCALE_SMOOTH);
+            pieceLabel.setText("");
+            pieceLabel.setIcon(new ImageIcon(scaled));
+            pieceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            pieceLabel.setVerticalAlignment(SwingConstants.CENTER);
+            add(pieceLabel, BorderLayout.CENTER);
+        }
+
+        revalidate();
+        repaint();
     }
 
 
