@@ -29,17 +29,17 @@ Follow these instructions to compile and run the project:
 1. **Clone the Repository**:  
    ```bash
    git clone https://github.com/formalmiguel/Chess.git
-   cd [repository folder]
+   cd Chess/Chess/src/main/java/
    ```
 
 2. **Compile the Code**:  
    ```bash
-   javac -d bin src/*.java
+   javac -d bin chess_part2/*.java
    ```
 
 3. **Run the Game**:  
    ```bash
-   java -cp bin ChessGame
+   java -cp bin chess_part2.Chess
    ```
 
 ---
