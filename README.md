@@ -29,7 +29,7 @@ Checkmate:
 
 ### Class Diagram
 ![Class Diagram](./Chess/media/Ul.png)
-
+Or [ClickHere](Chess/media/Ul.pdf)
 ---
 
 ## How to Run the Project
