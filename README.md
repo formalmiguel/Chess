@@ -16,10 +16,10 @@ This project is a GUI-based Chess game developed as part of our Object-Oriented 
 
 ## Preview
 ### GUI Preview
-![Chess Game GUI Preview](path/to/your/gui_preview_image.png)
+![Chess Game GUI Preview](Chess/media/move-ezgif.com-video-to-gif-converter.gif)
 
 ### Class Diagram
-![Class Diagram](./Chess/src/main/Ul.png)
+![Class Diagram](./Chess/media/Ul.png)
 
 ---
 
