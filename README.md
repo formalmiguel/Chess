@@ -16,7 +16,16 @@ This project is a GUI-based Chess game developed as part of our Object-Oriented 
 
 ## Preview
 ### GUI Preview
+Regular Move:
+
+
 ![Chess Game GUI Preview](Chess/media/move-ezgif.com-video-to-gif-converter.gif)
+
+
+Checkmate:
+
+
+![Chess Game GUI Preview](Chess/media/checkmate.gif)
 
 ### Class Diagram
 ![Class Diagram](./Chess/media/Ul.png)
