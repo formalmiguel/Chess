@@ -32,7 +32,7 @@ Checkmate:
 
 Or 
 
-[Click Here for a more Detailed IMG](Chess/media/Ul.pdf)
+[Click Here for a more Detailed Version](Chess/media/Ul.pdf)
 ---
 
 ## How to Run the Project
