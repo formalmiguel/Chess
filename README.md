@@ -28,8 +28,8 @@ Follow these instructions to compile and run the project:
 
 1. **Clone the Repository**:  
    ```bash
-   git clone https://github.com/formalmiguel/Chess.git
-   cd Chess/Chess/src/main/java/
+   git clone [https://github.com/formalmiguel/Chess.git]
+   cd [Chess/Chess/src/main/java/]
    ```
 
 2. **Compile the Code**:  
